@@ -60,7 +60,7 @@ def get_dataset(saveto='sounds', convert_mp3_to_16khzwav=False):
     wavs = glob('{}/**/*.16khz.wav'.format(saveto), recursive=True)
 
     if not wavs:
-        sys.exit("Error: No 16khz wav files were found in '" + saveto + "'")        
+        sys.exit("Error: No 16khz wav files were found in '" + saveto + "'")
 
     dataset = []
     for wav_i in wavs:
@@ -76,7 +76,7 @@ def train():
     Returns
     -------
         loss
-    """    
+    """
     batch_size = 2
     filter_length = 2
     n_stages = 7
@@ -86,7 +86,8 @@ def train():
 
     dataset = get_dataset(convert_mp3_to_16khzwav=True)
     it_i = 0
-    n_epochs = 1000
+    # n_epochs = 1000
+    n_epochs = 50
     sequence_length = wavenet.get_sequence_length(n_stages, n_layers_per_stage)
     ckpt_path = 'plath-wavenet/wavenet_filterlen{}_batchsize{}_sequencelen{}_stages{}_layers{}_hidden{}_skips{}'.format(
         filter_length, batch_size, sequence_length, n_stages,
