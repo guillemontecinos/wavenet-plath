@@ -87,7 +87,7 @@ def train():
     dataset = get_dataset(convert_mp3_to_16khzwav=True)
     it_i = 0
     # n_epochs = 1000
-    n_epochs = 50
+    n_epochs = 1
     sequence_length = wavenet.get_sequence_length(n_stages, n_layers_per_stage)
     ckpt_path = 'plath-wavenet/wavenet_filterlen{}_batchsize{}_sequencelen{}_stages{}_layers{}_hidden{}_skips{}'.format(
         filter_length, batch_size, sequence_length, n_stages,
@@ -176,7 +176,7 @@ def synthesize():
 
     print('Synthesize...')
     for sample_i in range(0, total_length - prime_length):
-        print('{}/{}/{}'.format(sample_i, prime_length, total_length), end='\r')
+        print('\r','{}/{}/{}'.format(sample_i, prime_length, total_length), end='')
         probs = sess.run(
             net["probs"],
             feed_dict={net["X"]: synth[:, sample_i:sample_i + sequence_length]})
